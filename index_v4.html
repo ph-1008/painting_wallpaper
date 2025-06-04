@@ -1,0 +1,266 @@
+﻿<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <title>手機桌布免費贈送計畫</title>
+  <!-- 引入 Google 字體：Noto Sans TC -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== 全局設定 ===== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html, body {
+      height: 100%;
+      font-family: 'Noto Sans TC', sans-serif;
+      background: linear-gradient(to bottom, #fafafa, #eaeaea);
+      color: #333;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      text-align: center;
+    }
+    h1, h2 {
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    p {
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 1.6;
+      margin: 8px 0;
+    }
+    .button {
+      background: linear-gradient(90deg, #ff6b6b, #e55039);
+      color: #fff;
+      padding: 12px 30px;
+      font-size: 18px;
+      font-weight: 700;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 24px;
+    }
+    .button:hover {
+      filter: brightness(1.1);
+      transform: scale(1.05);
+    }
+    /* 隱藏區塊 */
+    .hidden {
+      display: none;
+    }
+    /* 淡入動畫 */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    .fade-in {
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    /* ===== 進度條/指示條 ===== */
+    .progress-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 24px 0;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .progress-step {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background-color: #ddd;
+      color: #555;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .progress-step.active {
+      background-color: #3498db;
+      color: #fff;
+    }
+
+    /* ===== 各步驟區塊樣式 ===== */
+    .section {
+      width: 100%;
+      max-width: 960px;
+      padding: 20px;
+      margin-bottom: 40px;
+      background-color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      position: relative;
+    }
+
+    /* ===== 圖片選擇區 ===== */
+    .images-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 16px;
+      justify-items: center;
+      margin-top: 16px;
+    }
+    .image-option {
+      background: #fefefe;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+      width: 100%;
+      max-width: 160px;
+    }
+    .image-option:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+    .image-option img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .image-option.selected {
+      border: 4px solid #ff6b6b;
+      border-radius: 10px;
+    }
+
+    /* ===== 下載區 ===== */
+    #step3 p {
+      margin-bottom: 24px;
+      font-size: 20px;
+    }
+
+    /* ===== 響應式優化 ===== */
+    @media (max-width: 768px) {
+      .images-container {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 12px;
+      }
+      .button {
+        padding: 10px 24px;
+        font-size: 16px;
+      }
+      .section {
+        padding: 16px;
+      }
+      h1 {
+        font-size: 24px;
+      }
+      h2 {
+        font-size: 20px;
+      }
+      p {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== 進度條 ===== -->
+  <div class="progress-container">
+    <div id="step-indicator-1" class="progress-step active">1</div>
+    <div id="step-indicator-2" class="progress-step">2</div>
+    <div id="step-indicator-3" class="progress-step">3</div>
+  </div>
+
+  <!-- ===== 步驟 1：進入畫面 ===== -->
+  <div id="step1" class="section fade-in">
+    <p>曹松清油畫創作展</p>
+    <h1>手機桌布免費贈送計畫</h1>
+    <p>國立中央大學資工系<br>計算式智慧暨人機互動實驗室製作</p>
+    <button class="button" onclick="nextStep()">進入</button>
+  </div>
+
+  <!-- ===== 步驟 2：六選一圖片 ===== -->
+  <div id="step2" class="section hidden">
+    <h2>請選擇 (六選一)</h2>
+    <div class="images-container">
+      <div class="image-option" onclick="selectImage(1)"><img src="images/1.jpg" alt="圖片 1"></div>
+      <div class="image-option" onclick="selectImage(2)"><img src="images/2.jpg" alt="圖片 2"></div>
+      <div class="image-option" onclick="selectImage(3)"><img src="images/3.jpg" alt="圖片 3"></div>
+      <div class="image-option" onclick="selectImage(4)"><img src="images/4.jpg" alt="圖片 4"></div>
+      <div class="image-option" onclick="selectImage(5)"><img src="images/5.jpg" alt="圖片 5"></div>
+      <div class="image-option" onclick="selectImage(6)"><img src="images/6.jpg" alt="圖片 6"></div>
+    </div>
+    <button class="button" onclick="goToDownload()">確認</button>
+  </div>
+
+  <!-- ===== 步驟 3：下載畫面 ===== -->
+  <div id="step3" class="section hidden">
+    <p>下載您的手機桌布</p>
+    <button class="button" id="downloadBtn" onclick="downloadImage()">下載</button>
+    <br>
+    <button class="button" onclick="restart()">重新選擇</button>
+  </div>
+
+  <script>
+    let selectedImage = null;
+
+    /* 更新進度條的顯示 */
+    function updateProgress(step) {
+      document.getElementById('step-indicator-1').classList.remove('active');
+      document.getElementById('step-indicator-2').classList.remove('active');
+      document.getElementById('step-indicator-3').classList.remove('active');
+      document.getElementById(`step-indicator-${step}`).classList.add('active');
+    }
+
+    /* 步驟 1 → 步驟 2 */
+    function nextStep() {
+      document.getElementById('step1').classList.add('hidden');
+      document.getElementById('step2').classList.remove('hidden');
+      document.getElementById('step2').classList.add('fade-in');
+      updateProgress(2);
+    }
+
+    /* 選擇圖片，並加上紅色框標示 */
+    function selectImage(id) {
+      selectedImage = id;
+      document.querySelectorAll('.image-option').forEach(el => el.classList.remove('selected'));
+      document.querySelectorAll('.image-option')[id - 1].classList.add('selected');
+    }
+
+    /* 步驟 2 → 步驟 3 */
+    function goToDownload() {
+      if (!selectedImage) {
+        alert('請先選擇一張圖片！');
+        return;
+      }
+      document.getElementById('step2').classList.add('hidden');
+      document.getElementById('step3').classList.remove('hidden');
+      document.getElementById('step3').classList.add('fade-in');
+      updateProgress(3);
+    }
+
+    /* 下載選擇的圖片 */
+    function downloadImage() {
+      if (!selectedImage) {
+        alert('請先選擇一張圖片！');
+        return;
+      }
+      const link = document.createElement('a');
+      link.href = `images/${selectedImage}.jpg`;
+      link.download = `桌布_${selectedImage}.jpg`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    /* 重新載入，回到步驟 1 */
+    function restart() {
+      location.reload();
+    }
+  </script>
+</body>
+</html>
