@@ -1,263 +1,294 @@
 ﻿<!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>手機桌布免費贈送計畫</title>
-  <!-- 引入 Google 字體：Noto Sans TC -->
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet"/>
   <style>
-    /* ===== 全局設定 ===== */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    /* 重置並設定全域 */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body {
+      width: 100%;
       height: 100%;
+      overflow: hidden;
       font-family: 'Noto Sans TC', sans-serif;
-      background: linear-gradient(to bottom, #fafafa, #eaeaea);
-      color: #333;
+      background-color: #0A2E66;
     }
-    body {
+    button { cursor: pointer; }
+
+    /* 步驟1：封面 & 轉場圖層 */
+    #step1 {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+    }
+    .bg-layer {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-size: auto 100%;
+      background-position: center center;
+      background-repeat: no-repeat;
+      transition:
+        opacity 1s ease-in-out,
+        background-color 1s ease-in-out;
+    }
+    .layer1 { z-index: 1; opacity: 1; }
+    .layer2 { z-index: 0; opacity: 0; }
+    .content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
+      justify-content: flex-start;/* 從頂端往下排，不要再置中 */
+      padding-top: 40pt;          /* 從最上方開始往下 80pt */
       text-align: center;
+      color: #fff;
+      /* padding: 0 20px; */
     }
-    h1, h2 {
-      font-weight: 700;
-      margin-bottom: 16px;
+    .cover-text.top {
+      font-size: 1rem;
+      margin-bottom: 1rem;
     }
-    p {
-      font-weight: 400;
-      font-size: 18px;
-      line-height: 1.6;
-      margin: 8px 0;
+    .cover-text.title {
+      font-size: 2rem;
+      margin-bottom: 10rem;
+    }
+    .vertical-text {
+      font-size: 1rem;
+      line-height: 1.5;
+      margin-bottom: 3rem;
     }
     .button {
-      background: linear-gradient(90deg, #ff6b6b, #e55039);
-      color: #fff;
-      padding: 12px 30px;
-      font-size: 18px;
-      font-weight: 700;
+      padding: 0.8rem 2rem;
+      font-size: 1rem;
       border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      margin-top: 24px;
+      border-radius: 0.5rem;
+      background-color: rgba(0,0,0,0.4);
+      color: #fff;
+      transition: background-color 0.3s;
     }
     .button:hover {
-      filter: brightness(1.1);
-      transform: scale(1.05);
+      background-color: rgba(0,0,0,0.6);
     }
-    /* 隱藏區塊 */
-    .hidden {
+
+    /* 步驟2：六選一（原封不動的 CSS） */
+    /* 步驟2：六選一 */
+    #step2 {
       display: none;
-    }
-    /* 淡入動畫 */
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to   { opacity: 1; }
-    }
-    .fade-in {
-      animation: fadeIn 0.5s ease-out;
-    }
-
-    /* ===== 進度條/指示條 ===== */
-    .progress-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 24px 0;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-    .progress-step {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background-color: #ddd;
-      color: #555;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 16px;
-      transition: background-color 0.3s, color 0.3s;
-    }
-    .progress-step.active {
-      background-color: #3498db;
-      color: #fff;
-    }
-
-    /* ===== 各步驟區塊樣式 ===== */
-    .section {
+      min-height: 100vh;
       width: 100%;
-      max-width: 960px;
       padding: 20px;
-      margin-bottom: 40px;
-      background-color: #fff;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      position: relative;
+      background: #0A2E66;
+      color: #fff;
+      text-align: center;
     }
-
-    /* ===== 圖片選擇區 ===== */
-    .images-container {
+    #step2 .header-box {
+      display: inline-block;
+      padding: 10px 20px;
+      background: #82A7FE;
+      border-radius: 8px;
+      font-size: 18px;
+      margin-bottom: 16px;
+    }
+    .images-container2 {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
       justify-items: center;
-      margin-top: 16px;
+      padding: 10px;
     }
-    .image-option {
-      background: #fefefe;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      overflow: hidden;
-      transition: transform 0.2s, box-shadow 0.2s;
-      cursor: pointer;
-      width: 100%;
+    .images-container2 .image-option {
+      width: 30vw;
       max-width: 160px;
+      border: 4px solid transparent;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform .3s;
     }
-    .image-option:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-    }
-    .image-option img {
+    .images-container2 .image-option.selected { border-color: red; }
+    .images-container2 .image-option img {
       width: 100%;
       height: auto;
       display: block;
     }
-    .image-option.selected {
-      border: 4px solid #ff6b6b;
-      border-radius: 10px;
+    #step2 .message-box {
+      display: none;
+      margin-top: 16px;
+      font-size: 16px;
     }
-
-    /* ===== 下載區 ===== */
-    #step3 p {
-      margin-bottom: 24px;
-      font-size: 20px;
+    #step2 .button {
+      border-radius: 6px;
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-top: 16px;
+      transition: transform .3s;
+      background: #82A7FE;
+      color: #fff;
     }
+    #step2 .button:hover { transform: scale(1.05); }
 
-    /* ===== 響應式優化 ===== */
-    @media (max-width: 768px) {
-      .images-container {
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-        gap: 12px;
-      }
-      .button {
-        padding: 10px 24px;
-        font-size: 16px;
-      }
-      .section {
-        padding: 16px;
-      }
-      h1 {
-        font-size: 24px;
-      }
-      h2 {
-        font-size: 20px;
-      }
-      p {
-        font-size: 16px;
-      }
+    /* 步驟3：下載（原封不動的 CSS） */
+    #step3 {
+      display: none;
+      min-height: 100vh;
+      width: 100%;
+      padding: 20px;
+      background: #0A2E66;
+      color: #333;
+      text-align: center;
+    }
+    #step3 h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #fff
+    }
+    #step3 .button {
+      background: #82A7FE;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 12px 24px;
+      font-size: 18px;
+      margin: 10px 0;
+      transition: transform .3s;
+    }
+    /* #step3 .button:hover { transform: scale(1.05); } */
+    #step3 img { max-width:20%; border-radius:8px; }
+
+    /* 響應式 */
+    @media(max-width:480px) {
+      .cover-text.title { font-size: 20px; }
+      .cover-text.top { font-size: 10px; }
+      .vertical-text { font-size: 14px; }
+      #step2 .header-box { font-size: 16px; padding: 8px 16px; }
+      #step2 .button, #step3 .button { font-size: 14px; padding: 8px 16px; }
+      .images-container2 { grid-template-columns: repeat(2,1fr); }
+      .images-container2 .image-option { width: 40vw; }
     }
   </style>
 </head>
 <body>
-
-  <!-- ===== 進度條 ===== -->
-  <div class="progress-container">
-    <div id="step-indicator-1" class="progress-step active">1</div>
-    <div id="step-indicator-2" class="progress-step">2</div>
-    <div id="step-indicator-3" class="progress-step">3</div>
-  </div>
-
-  <!-- ===== 步驟 1：進入畫面 ===== -->
-  <div id="step1" class="section fade-in">
-    <p>曹松清油畫創作展</p>
-    <h1>手機桌布免費贈送計畫</h1>
-    <p>國立中央大學資工系<br>計算式智慧暨人機互動實驗室製作</p>
-    <button class="button" onclick="nextStep()">進入</button>
-  </div>
-
-  <!-- ===== 步驟 2：六選一圖片 ===== -->
-  <div id="step2" class="section hidden">
-    <h2>請選擇 (六選一)</h2>
-    <div class="images-container">
-      <div class="image-option" onclick="selectImage(1)"><img src="images/1.jpg" alt="圖片 1"></div>
-      <div class="image-option" onclick="selectImage(2)"><img src="images/2.jpg" alt="圖片 2"></div>
-      <div class="image-option" onclick="selectImage(3)"><img src="images/3.jpg" alt="圖片 3"></div>
-      <div class="image-option" onclick="selectImage(4)"><img src="images/4.jpg" alt="圖片 4"></div>
-      <div class="image-option" onclick="selectImage(5)"><img src="images/5.jpg" alt="圖片 5"></div>
-      <div class="image-option" onclick="selectImage(6)"><img src="images/6.jpg" alt="圖片 6"></div>
+  <!-- 步驟1：封面 -->
+  <div id="step1">
+    <div class="bg-layer layer1"></div>
+    <div class="bg-layer layer2"></div>
+    <div class="content">
+      <div class="cover-text top">
+        國立中央大學資工系計算式智慧暨人機互動實驗室製作
+      </div>
+      <div class="cover-text title">
+        手機桌布免費贈送計畫
+      </div>
+      <div class="vertical-text">
+        感謝您蒞臨我的油畫創作展，<br><br>
+        特別獻上以油畫元素設計的手機桌布，<br><br>
+        願它為您的螢幕增添色彩與靈感。
+      </div>
+      <button class="button" onclick="nextStep()">Enter</button>
     </div>
-    <button class="button" onclick="goToDownload()">確認</button>
   </div>
 
-  <!-- ===== 步驟 3：下載畫面 ===== -->
-  <div id="step3" class="section hidden">
-    <p>下載您的手機桌布</p>
-    <button class="button" id="downloadBtn" onclick="downloadImage()">下載</button>
-    <br>
-    <button class="button" onclick="restart()">重新選擇</button>
+  <!-- 步驟2：六選一 -->
+  <div id="step2">
+    <div class="header-box">敬請選擇您喜歡的桌布 (六選一)</div>
+    <div class="images-container2">
+      <div class="image-option" onclick="selectImage(1)"><img src="images/1.jpg" alt="桌布1"></div>
+      <div class="image-option" onclick="selectImage(2)"><img src="images/2.jpg" alt="桌布2"></div>
+      <div class="image-option" onclick="selectImage(3)"><img src="images/3.jpg" alt="桌布3"></div>
+      <div class="image-option" onclick="selectImage(4)"><img src="images/4.jpg" alt="桌布4"></div>
+      <div class="image-option" onclick="selectImage(5)"><img src="images/5.jpg" alt="桌布5"></div>
+      <div class="image-option" onclick="selectImage(6)"><img src="images/6.jpg" alt="桌布6"></div>
+    </div>
+    <div class="message-box" id="msg">您選擇為紅框的圖，請按確認</div>
+    <button class="button" onclick="confirmSelection()">確認</button>
+  </div>
+
+  <!-- 步驟3：下載 -->
+  <div id="step3">
+    <h2>您的專屬桌布</h2>
+    <img id="resultImg" src="" alt="選擇的桌布">
+    <div style="margin-top:20px;">
+        <button class="button" onclick="downloadImage()">下載桌布</button>
+        <button class="button" style="margin-left:12px;" onclick="restart()">重新選擇</button>
+    </div>
   </div>
 
   <script>
-    let selectedImage = null;
-
-    /* 更新進度條的顯示 */
-    function updateProgress(step) {
-      document.getElementById('step-indicator-1').classList.remove('active');
-      document.getElementById('step-indicator-2').classList.remove('active');
-      document.getElementById('step-indicator-3').classList.remove('active');
-      document.getElementById(`step-indicator-${step}`).classList.add('active');
+    // 背景與對應顏色陣列（Step1 轉場）
+    const bgImages = [
+      'images/background/1.jpg',
+      'images/background/2.jpg',
+      'images/background/3.jpg',
+      'images/background/4.jpg',
+      'images/background/5.jpg',
+      'images/background/6.jpg'
+    ];
+    const bgColors = ['#0272a2', '#131315', '#757da2', '#66b48c', '#072152', '#9fb1bd'];
+    const layer1 = document.querySelector('.layer1');
+    const layer2 = document.querySelector('.layer2');
+    let front = layer1, back = layer2;
+    let idx = 0;
+    // 初始化第一張背景
+    front.style.backgroundImage = `url('${bgImages[0]}')`;
+    front.style.backgroundColor = bgColors[0];
+    // 轉場函式
+    function switchBackground() {
+      const next = (idx + 1) % bgImages.length;
+      back.style.backgroundImage = `url('${bgImages[next]}')`;
+      back.style.backgroundColor = bgColors[next];
+      back.style.opacity = '1';
+      front.style.opacity = '0';
+      setTimeout(() => {
+        [front, back] = [back, front];
+        idx = next;
+      }, 1000);
     }
+    // 自動每 5 秒切換一次
+    setInterval(switchBackground, 2000);
 
-    /* 步驟 1 → 步驟 2 */
+    // 前往 Step2：隱藏 Step1、顯示 Step2
     function nextStep() {
-      document.getElementById('step1').classList.add('hidden');
-      document.getElementById('step2').classList.remove('hidden');
-      document.getElementById('step2').classList.add('fade-in');
-      updateProgress(2);
+      switchBackground();
+      document.getElementById('step1').style.display = 'none';
+      document.getElementById('step2').style.display = 'block';
     }
 
-    /* 選擇圖片，並加上紅色框標示 */
+    // 步驟2 選圖邏輯
+    let selected = null;
     function selectImage(id) {
-      selectedImage = id;
-      document.querySelectorAll('.image-option').forEach(el => el.classList.remove('selected'));
-      document.querySelectorAll('.image-option')[id - 1].classList.add('selected');
-    }
+      selected = id;
+      document.querySelectorAll('.images-container2 .image-option')
+        .forEach(el => el.classList.remove('selected'));
+      document.querySelectorAll('.images-container2 .image-option')[id - 1]
+        .classList.add('selected');
+      document.getElementById('msg').style.display = 'block';
 
-    /* 步驟 2 → 步驟 3 */
-    function goToDownload() {
-      if (!selectedImage) {
+      document.getElementById('step3').querySelector('#resultImg').src = `images/${id}.jpg`;
+      document.getElementById('step3').style.display = 'block';
+    }
+    function confirmSelection() {
+      if (!selected) {
         alert('請先選擇一張圖片！');
         return;
       }
-      document.getElementById('step2').classList.add('hidden');
-      document.getElementById('step3').classList.remove('hidden');
-      document.getElementById('step3').classList.add('fade-in');
-      updateProgress(3);
+      document.getElementById('step2').style.display = 'none';
+      document.getElementById('step3').style.display = 'block';
     }
 
-    /* 下載選擇的圖片 */
+    // 步驟3 下載 & 重選
     function downloadImage() {
-      if (!selectedImage) {
-        alert('請先選擇一張圖片！');
-        return;
-      }
       const link = document.createElement('a');
-      link.href = `images/${selectedImage}.jpg`;
-      link.download = `桌布_${selectedImage}.jpg`;
+      link.href = `images/${selected}.jpg`;
+      link.download = `桌布_${selected}.jpg`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
     }
-
-    /* 重新載入，回到步驟 1 */
     function restart() {
       location.reload();
     }
