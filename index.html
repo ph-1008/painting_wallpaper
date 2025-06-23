@@ -163,6 +163,7 @@
       border-radius: 6px;
     }
 
+
     /* 步驟3：下載（原封不動的 CSS） */
     #step3 {
       display: none;
@@ -225,29 +226,26 @@
   </div>
 
   <!-- 步驟2：六選一 -->
-  <head>
-    <!-- 千萬別忘了這行，才能讓手機真正以裝置寬度來跑排版！ -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-  </head>
-  <body>
-      <div id="step2">
-        <div class="step2-container">
-          <div class="header-box">敬請選擇您喜歡的桌布 (六選一)</div>
-          <div class="images-container2">
-            <div class="image-option" onclick="selectImage(1)"><img src="images/1.jpg" alt="桌布1"></div>
-            <div class="image-option" onclick="selectImage(2)"><img src="images/2.jpg" alt="桌布2"></div>
-            <div class="image-option" onclick="selectImage(3)"><img src="images/3.jpg" alt="桌布3"></div>
-            <div class="image-option" onclick="selectImage(4)"><img src="images/4.jpg" alt="桌布4"></div>
-            <div class="image-option" onclick="selectImage(5)"><img src="images/5.jpg" alt="桌布5"></div>
-            <div class="image-option" onclick="selectImage(6)"><img src="images/6.jpg" alt="桌布6"></div>
-          </div>
-          <div class="footer">
-            <div class="message-box" id="msg">您選擇為紅框的圖，請按確認</div>
-            <button class="button" onclick="confirmSelection()">確認</button>
-          </div>
-        </div>
-      </div>
-   </body>
+<div id="step2">
+<div class="step2-container">
+    <div class="header-box">敬請選擇您喜歡的桌布 (六選一)</div>
+    <br>
+    <div class="images-container2">
+    <div class="image-option" onclick="selectImage(1)"><img src="images/1.jpg" alt="桌布1"></div>
+    <div class="image-option" onclick="selectImage(2)"><img src="images/2.jpg" alt="桌布2"></div>
+    <div class="image-option" onclick="selectImage(3)"><img src="images/3.jpg" alt="桌布3"></div>
+    <div class="image-option" onclick="selectImage(4)"><img src="images/4.jpg" alt="桌布4"></div>
+    <div class="image-option" onclick="selectImage(5)"><img src="images/5.jpg" alt="桌布5"></div>
+    <div class="image-option" onclick="selectImage(6)"><img src="images/6.jpg" alt="桌布6"></div>
+    </div>
+    <br>
+    <div class="footer">
+    <div class="message-box" id="msg">您選擇為紅框的圖，請按確認</div>
+    <button class="button" onclick="confirmSelection()">確認</button>
+    </div>
+</div>
+</div>
+
 
   <!-- 步驟3：下載 -->
   <div id="step3">
@@ -310,7 +308,7 @@
       document.getElementById('msg').style.display = 'block';
 
       document.getElementById('step3').querySelector('#resultImg').src = `images/${id}.jpg`;
-      document.getElementById('step3').style.display = 'block';
+      /*document.getElementById('step3').style.display = 'block';*/
     }
     function confirmSelection() {
       if (!selected) {
