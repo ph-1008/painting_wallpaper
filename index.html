@@ -12,7 +12,11 @@
       width: 100%;
       height: 100%;
       font-family: 'Noto Sans TC', sans-serif;
-      background-color: #0A2E66;
+      background-color: #66b48c; /* 4號圖片對應色 */
+      background-image: url('images/background/4.jpg');
+      background-size: auto 100%;
+      background-position: center center;
+      background-repeat: no-repeat;
       overflow-x: hidden;
       overflow-y: auto;
     }
@@ -24,19 +28,6 @@
       width: 100%;
       height: 100vh;
     }
-    .bg-layer {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background-size: auto 100%;
-      background-position: center center;
-      background-repeat: no-repeat;
-      transition:
-        opacity 1s ease-in-out,
-        background-color 1s ease-in-out;
-    }
-    .layer1 { z-index: 1; opacity: 1; }
-    .layer2 { z-index: 0; opacity: 0; }
     .content {
       position: relative;
       z-index: 2;
@@ -207,8 +198,6 @@
 <body>
   <!-- 步驟1：封面 -->
   <div id="step1">
-    <div class="bg-layer layer1"></div>
-    <div class="bg-layer layer2"></div>
     <div class="content">
       <div class="cover-text top">
         國立中央大學資工系計算式智慧暨人機互動實驗室製作
@@ -258,41 +247,8 @@
   </div>
 
   <script>
-    // 背景與對應顏色陣列（Step1 轉場）
-    const bgImages = [
-      'images/background/1.jpg',
-      'images/background/2.jpg',
-      'images/background/3.jpg',
-      'images/background/4.jpg',
-      'images/background/5.jpg',
-      'images/background/6.jpg'
-    ];
-    const bgColors = ['#0272a2', '#131315', '#757da2', '#66b48c', '#072152', '#9fb1bd'];
-    const layer1 = document.querySelector('.layer1');
-    const layer2 = document.querySelector('.layer2');
-    let front = layer1, back = layer2;
-    let idx = 0;
-    // 初始化第一張背景
-    front.style.backgroundImage = `url('${bgImages[0]}')`;
-    front.style.backgroundColor = bgColors[0];
-    // 轉場函式
-    function switchBackground() {
-      const next = (idx + 1) % bgImages.length;
-      back.style.backgroundImage = `url('${bgImages[next]}')`;
-      back.style.backgroundColor = bgColors[next];
-      back.style.opacity = '1';
-      front.style.opacity = '0';
-      setTimeout(() => {
-        [front, back] = [back, front];
-        idx = next;
-      }, 1000);
-    }
-    // 自動每 5 秒切換一次
-    setInterval(switchBackground, 2000);
-
     // 前往 Step2：隱藏 Step1、顯示 Step2
     function nextStep() {
-      switchBackground();
       document.getElementById('step1').style.display = 'none';
       document.getElementById('step2').style.display = 'block';
     }
@@ -306,9 +262,7 @@
       document.querySelectorAll('.images-container2 .image-option')[id - 1]
         .classList.add('selected');
       document.getElementById('msg').style.display = 'block';
-
       document.getElementById('step3').querySelector('#resultImg').src = `images/${id}.jpg`;
-      /*document.getElementById('step3').style.display = 'block';*/
     }
     function confirmSelection() {
       if (!selected) {
