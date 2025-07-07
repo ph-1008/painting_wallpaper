@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8"/>
-  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>手機桌布免費贈送計畫</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet"/>
   <style>
@@ -48,7 +48,7 @@
       margin-bottom: 1rem;
     }
     .cover-text.title {
-      font-size:3rem;
+      font-size:2.5rem;
       margin-bottom: 2rem;
     }
     .vertical-text {
@@ -185,8 +185,8 @@
     #step3 img { max-width:40%; border-radius:8px; }
 
     /* 響應式 */
-    @media(max-width:480px) {
-      .cover-text.title { font-size: 20px; }
+    @media(max-width:600px) {
+      .cover-text.title { font-size: 35px; }
       .cover-text.top { font-size: 10px; }
       .vertical-text { font-size: 14px; }
       #step2 .header-box { font-size: 16px; padding: 8px 16px; }
@@ -282,6 +282,9 @@
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
+
+      // 新增提示文字
+      alert('下載完成，請至設定將圖片設為您的桌布');
     }
     function restart() {
       location.reload();
