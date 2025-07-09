@@ -242,7 +242,7 @@
     <h2>您的專屬桌布</h2>
     <img id="resultImg" src="" alt="選擇的桌布">
     <div style="margin-top:20px;">
-        <button class="button" onclick="downloadImage()">下載桌布</button>
+        <a id="downloadLink" class="button" href="" download="">下載桌布</a>
         <button class="button" style="margin-left:12px;" onclick="restart()">重新選擇</button>
     </div>
   </div>
@@ -272,6 +272,11 @@
       }
       document.getElementById('step2').style.display = 'none';
       document.getElementById('step3').style.display = 'block';
+
+      // 設定圖片與下載連結
+      document.getElementById('resultImg').src = `images/${selected}.jpg`;
+      document.getElementById('downloadLink').href = `images/${selected}.jpg`;
+      document.getElementById('downloadLink').download = `桌布_${selected}.jpg`;
     }
 
     // 步驟3 下載 & 重選
@@ -284,7 +289,9 @@
       document.body.removeChild(link);
 
       // 新增提示文字
-      alert('下載完成，請至設定將圖片設為您的桌布');
+      setTimeout(() => {
+        alert('下載完成，請至設定將圖片設為您的桌布');
+      }, 1000); 
     }
     function restart() {
       location.reload();
